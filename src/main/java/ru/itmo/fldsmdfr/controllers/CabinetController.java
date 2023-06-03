@@ -23,6 +23,7 @@ public class CabinetController {
             else if(authority.getAuthority().equals(Role.DELIVERYMAN.toString())) {
                 return "addressDelivery";
             }
+
         }
         return "error";
     }
