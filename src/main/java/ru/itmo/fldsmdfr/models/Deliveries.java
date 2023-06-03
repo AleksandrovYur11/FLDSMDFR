@@ -1,29 +1,24 @@
 package ru.itmo.fldsmdfr.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 public class Deliveries {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "user_id")
     private Long id;
-
-    //    @Column(name = "dish_id")
     private Long dishId;
-
-    //    @Column(name = "date")
     private Date date;
-
-    //    @Column(name = "food_time")
+    @Enumerated(EnumType.STRING)
     private FoodTime foodTime;
-
-    private Enum status;
+    @Enumerated(EnumType.STRING)
+    private StatusDelivery status;
 
 }
