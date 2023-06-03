@@ -1,13 +1,15 @@
 package ru.itmo.fldsmdfr.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "user", schema = "public")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -18,5 +20,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String address;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 }
