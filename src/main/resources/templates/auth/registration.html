@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/registration}" th:object="${user}">
+    <label for="login">Введите имя пользователя:</label>
+    <input type="text" th:field="*{login}" id="login">
+    <div style="color:red;" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Username error</div>
+    <br/>
+    <label for="password">Введите пароль:</label>
+    <input type="text" th:field="*{password}" id="password">
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+    <br/>
+    <label for="firstName">Введите имя:</label>
+    <input type="text" th:field="*{firstName}" id="firstName">
+    <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName error</div>
+    <br/>
+    <label for="lastName">Введите фамилию:</label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+    <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
+    <br/>
+    <label for="address">Введите адресс:</label>
+    <input type="text" th:field="*{address}" id="address">
+    <div style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
+    <br/>
+    <label for="role">Выберите роль:</label>
+    <select name="role" id="role">
+        <option th:each="role : ${T(ru.itmo.fldsmdfr.models.Role).values()}"
+                th:text="${role.displayText}"
+                th:value="${role}">
+        </option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role error</div>
+    <input type="submit" value="Sing up"/>
+</form>
+
+</body>
+</html>
