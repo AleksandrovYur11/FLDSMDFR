@@ -16,16 +16,20 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(  "/login", "/registration", "/error", "/js/**", "/css/**").permitAll()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .formLogin((form) -> form
-//                        .loginPage("/login")
+                        .loginPage("/login")
+                        .loginProcessingUrl("/process_login")
                         .defaultSuccessUrl("/cabinet")
+                        .failureUrl("/login?error")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
-
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login"));
         return http.build();
     }
 
