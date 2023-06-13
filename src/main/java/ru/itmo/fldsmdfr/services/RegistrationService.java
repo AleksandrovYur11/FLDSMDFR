@@ -1,4 +1,4 @@
-package ru.itmo.fldsmdfr.Service;
+package ru.itmo.fldsmdfr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bootstrap 4, from LayoutIt!</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <h3>
+                Голосование за блюдо
+            </h3>
+            <span class="badge badge-danger">Следующее голосование начнется после обслуживания ФулдисМдреда</span>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+            <form role="form" method="POST" action="/vote">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Прием пищи
+                        </th>
+                        <th>
+                            Блюдо
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+                            Завтрак
+                        </td>
+                        <td>
+                            <div class="form-select">
+                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
+                                        id="dropdownMenuBreakfast" data-toggle="dropdown">
+                                    Выбрать блюдо
+                                </button>
+                                <select class="dropdown-menu" aria-labelledby="dropdownMenuBreakfast">
+                                    <option class="dropdown-item" value="Первое блюдо">Первое блюдо</option>
+                                    <option class="dropdown-item" value="Второе блюдо">Второе блюдо</option>
+                                    <option class="dropdown-item" value="Третье блюдо">Третье блюдо</option>
+                                </select>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr class="table-success">
+                        <td>
+                            Обед
+                        </td>
+                        <td>
+                            <div class="form-select">
+                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
+                                        id="dropdownMenuDinner" data-toggle="dropdown">
+                                    Выбрать блюдо
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
+                                    <option class="dropdown-item" value="Первое блюдо">Первое блюдо</option>
+                                    <option class="dropdown-item" value="Второе блюдо">Второе блюдо</option>
+                                    <option class="dropdown-item" value="Третье блюдо">Третье блюдо</option>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Ужин
+                        </td>
+                        <td>
+                            <select class="form-select">
+                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
+                                        id="dropdownMenuSupper" data-toggle="dropdown">
+                                    Выбрать блюдо
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSupper">
+                                    <option class="dropdown-item" value="Первое блюдо">Первое блюдо</option>
+                                    <option class="dropdown-item" value="Второе блюдо">Второе блюдо</option>
+                                    <option class="dropdown-item" value="Третье блюдо">Третье блюдо</option>
+                                </div>
+                            </select>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary disabled">
+                    Проголосовать
+                </button>
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

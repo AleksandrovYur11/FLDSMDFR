@@ -9,7 +9,7 @@ import java.time.Instant;
 @Entity
 @Getter
 @Setter
-public class FldsmdfrLoks {
+public class FldsmdfrLock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

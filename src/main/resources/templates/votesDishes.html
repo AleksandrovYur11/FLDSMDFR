@@ -1,125 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html></html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Bootstrap 4, from LayoutIt!</title>
-
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
-
+    <title>Голосование</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
+<div class="col-6 mx-auto">
+    <h3 class="text-center">Голосование</h3>
+    <p class="text-center">14 июня</p>
+    <p class="badge badge-danger text-center">Голосование приостановлено</p>
+    <form method="POST" action="/vote">
+        <table class="table">
+            <thead>
+            <th>
+                Прием пищи
+            </th>
+            <th>
+                Блюдо
+            </th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <label for="breakfast">Завтрак</label>
+                </td>
+                <td>
+                    <select id="breakfast" name="breakfast" class="btn btn-primary">
+                    <option th:each="dish: ${dishes}" th:value="${dish.id}" th:text="${dish.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="lunch">Обед</label>
+                </td>
+                <td>
+                    <select id="lunch" name="lunch" class="btn btn-primary">
+                        <option th:each="dish: ${dishes}" th:value="${dish.id}" th:text="${dish.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="dinner">Ужин</label>
+                </td>
+                <td>
+                    <select id="dinner" name="dinner" class="btn btn-primary">
+                        <option th:each="dish: ${dishes}" th:value="${dish.id}" th:text="${dish.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary">Проголосовать</button>
         </div>
-        <div class="col-md-8">
-            <h3>
-                Голосование за блюдо
-            </h3>
-            <span class="badge badge-danger">Следующее голосование начнется после обслуживания ФулдисМдреда</span>
-        </div>
-        <div class="col-md-2">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-4">
-            <form role="form">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>
-                            Прием пищи
-                        </th>
-                        <th>
-                            Блюдо
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                        <td>
-                            Завтрак
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
-                                        id="dropdownMenuBreakfast" data-toggle="dropdown">
-                                    Выбрать блюдо
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuBreakfast">
-                                    <a class="dropdown-item" href="#">Первое блюдо</a>
-                                    <a class="dropdown-item" href="#">Второе блюдо</a>
-                                    <a class="dropdown-item" href="#">Третье блюдо</a>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr class="table-success">
-                        <td>
-                            Обед
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
-                                        id="dropdownMenuDinner" data-toggle="dropdown">
-                                    Выбрать блюдо
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Первое блюдо</a>
-                                    <a class="dropdown-item" href="#">Второе блюдо</a>
-                                    <a class="dropdown-item" href="#">Третье блюдо</a>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            Ужин
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
-                                        id="dropdownMenuSupper" data-toggle="dropdown">
-                                    Выбрать блюдо
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSupper">
-                                    <a class="dropdown-item" href="#">Первое блюдо</a>
-                                    <a class="dropdown-item" href="#">Второе блюдо</a>
-                                    <a class="dropdown-item" href="#">Третье блюдо</a>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-                <button type="submit" class="btn btn-primary disabled">
-                    Проголосовать
-                </button>
-            </form>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-2">
-        </div>
-    </div>
+    </form>
 </div>
-
-<script src="../static/js/jquery.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script>
-<script src="../static/js/scripts.js"></script>
 </body>
-</html>
