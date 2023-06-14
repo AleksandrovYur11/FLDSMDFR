@@ -20,6 +20,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(  "/login", "/registration", "/error", "/js/**", "/css/**").permitAll()
                         .requestMatchers("/maintain").hasAuthority(Role.SCIENTIST.toString())
+                        .requestMatchers("/delivery/**").hasAuthority(Role.DELIVERYMAN.toString())
                         .anyRequest()
                         .authenticated()
                 )

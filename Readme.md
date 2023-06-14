@@ -1,4 +1,5 @@
 # Automated system for FLDSMDFR food order and delivery
+Studying project of ITMO students on the fictional universe of the cartoon "Cloudy with a Chance of Meatballs"
 ## Build instructions
 ### Prerequisites 
 Make sure to have java 17+ (jdk17+) and maven 3.8+ installed.

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bootstrap 4, from LayoutIt!</title>
+    <title>Доставка</title>
 
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
@@ -54,160 +54,37 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="table-success">
-                        <td>
+                    <tr th:each="delivery: ${deliveries}"
+                        th:class="${#strings.toString(delivery.status) == 'NEW' ? '' :
+                        ((#strings.toString(delivery.status) == 'IN_PROGRESS') ? 'table-warning' : 'table-success')}">
+                        <td th:text="${delivery.id}">
                             1
                         </td>
-                        <td>
+                        <td th:text="${delivery.address}">
                             Адрес 1
                         </td>
-                        <td>
+                        <td th:text="${#dates.format(delivery.lastChangeTimestamp, 'HH:mm')}">
                             00:01
                         </td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
+                                <button class="btn btn-primary dropdown-toggle" type="button"
                                         id="dropdownMenuDinner" data-toggle="dropdown">
                                     Действие
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Взять в доставку</a>
-                                    <a class="dropdown-item" href="#">Перевести в доставлено</a>
+                                    <a class="dropdown-item" th:href="'/delivery/setprogress/' + ${delivery.id}">
+                                        Взять в доставку
+                                    </a>
+
+                                    <a class="dropdown-item" th:href="'/delivery/setdelivered/' + ${delivery.id}">
+                                        Перевести в доставлено
+                                    </a>
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td th:text="${delivery.status}">
                             Доставлено
-                        </td>
-                    </tr>
-                    <tr class="table-success">
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            Адрес 2
-                        </td>
-                        <td>
-                            00:01
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle disabled" type="button"
-                                        id="dropdownMenuDinner" data-toggle="dropdown">
-                                    Действие
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Взять в доставку</a>
-                                    <a class="dropdown-item" href="#">Перевести в доставлено</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            Доставлено
-                        </td>
-                    </tr>
-                    <tr class="table-warning">
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            Адрес 3
-                        </td>
-                        <td>
-                            00:01
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDinner"
-                                        data-toggle="dropdown">
-                                    Действие
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Взять в доставку</a>
-                                    <a class="dropdown-item" href="#">Перевести в доставлено</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            В работе
-                        </td>
-                    </tr>
-                    <tr class="table-active">
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            Адрес 4
-                        </td>
-                        <td>
-                            00:01
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDinner"
-                                        data-toggle="dropdown">
-                                    Действие
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Взять в доставку</a>
-                                    <a class="dropdown-item" href="#">Перевести в доставлено</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            Новый
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                            Адрес 5
-                        </td>
-                        <td>
-                            00:01
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDinner"
-                                        data-toggle="dropdown">
-                                    Действие
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Взять в доставку</a>
-                                    <a class="dropdown-item" href="#">Перевести в доставлено</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            Новый
-                        </td>
-                    </tr>
-                    <tr class="table-active">
-                        <td>
-                            6
-                        </td>
-                        <td>
-                            Адрес 6
-                        </td>
-                        <td>
-                            00:01
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDinner"
-                                        data-toggle="dropdown">
-                                    Действие
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDinner">
-                                    <a class="dropdown-item" href="#">Взять в доставку</a>
-                                    <a class="dropdown-item" href="#">Перевести в доставлено</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            Новый
                         </td>
                     </tr>
                     </tbody>

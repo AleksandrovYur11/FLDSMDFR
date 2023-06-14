@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.itmo.fldsmdfr.models.Role;
 import ru.itmo.fldsmdfr.security.UserDetailsImpl;
+import ru.itmo.fldsmdfr.services.DeliveryService;
 import ru.itmo.fldsmdfr.services.DishService;
 import ru.itmo.fldsmdfr.services.LockService;
 import ru.itmo.fldsmdfr.services.VoteService;
@@ -22,12 +23,14 @@ public class CabinetController {
     private DishService dishService;
     private VoteService voteService;
     private LockService lockService;
+    private DeliveryService deliveryService;
 
     @Autowired
-    public CabinetController(DishService dishService, VoteService voteService, LockService lockService) {
+    public CabinetController(DishService dishService, VoteService voteService, LockService lockService, DeliveryService deliveryService) {
         this.dishService = dishService;
         this.voteService = voteService;
         this.lockService = lockService;
+        this.deliveryService = deliveryService;
     }
 
     @GetMapping("/cabinet")
@@ -40,6 +43,7 @@ public class CabinetController {
             model.addAttribute("userVoted", voteService.hasUserVotedToday(userDetails.getUser()));
             return "votesDishes";
         } else if (authority.getAuthority().equals(Role.DELIVERYMAN.toString())) {
+            model.addAttribute("deliveries", deliveryService.getAllDeliveries());
             return "addressDelivery";
         }
         else if (authority.getAuthority().equals(Role.SCIENTIST.toString())){

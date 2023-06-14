@@ -1,6 +1,7 @@
 package ru.itmo.fldsmdfr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import ru.itmo.fldsmdfr.models.Dish;
 import ru.itmo.fldsmdfr.models.FoodTime;
@@ -54,5 +55,15 @@ public class VoteService {
     public boolean hasUserVotedToday(User user) {
         List<Vote> votes = voteRepository.findByDate(LocalDate.now());
         return !votes.isEmpty();
+    }
+
+    public Dish getWinnerDish(LocalDate date, FoodTime foodTime) {
+
+        return null;
+    }
+
+    public List<User> getWinnerUsers(LocalDate date, FoodTime foodTime){
+
+        return null;
     }
 }

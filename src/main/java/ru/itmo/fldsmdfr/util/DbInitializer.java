@@ -7,11 +7,13 @@ import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.itmo.fldsmdfr.models.*;
+import ru.itmo.fldsmdfr.repositories.DeliveryRepository;
 import ru.itmo.fldsmdfr.repositories.DishRepository;
 import ru.itmo.fldsmdfr.repositories.FldsmdfrLocksRepository;
 import ru.itmo.fldsmdfr.repositories.UserRepository;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -21,13 +23,15 @@ public class DbInitializer {
     private final PasswordEncoder passwordEncoder;
     private final DishRepository dishRepository;
     private final FldsmdfrLocksRepository locksRepository;
+    private final DeliveryRepository deliveryRepository;
 
     @Autowired
-    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository) {
+    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository, DeliveryRepository deliveryRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.dishRepository = dishRepository;
         this.locksRepository = fldsmdfrLocksRepository;
+        this.deliveryRepository = deliveryRepository;
     }
 
     @EventListener(ApplicationStartedEvent.class)
@@ -106,6 +110,19 @@ public class DbInitializer {
                 FldsmdfrLock.builder()
                         .dateTime(Instant.now())
                         .type(LockStatus.UNLOCK)
+                        .build()
+        );
+    }
+
+    @EventListener(ApplicationStartedEvent.class)
+    public void addDeliveries() {
+        deliveryRepository.save(
+                Delivery.builder()
+                        .date(LocalDate.now())
+                        .foodTime(FoodTime.BREAKFAST)
+                        .address("Кронверкский 49")
+                        .status(DeliveryStatus.NEW)
+                        .lastChangeTimestamp(Instant.now())
                         .build()
         );
     }
