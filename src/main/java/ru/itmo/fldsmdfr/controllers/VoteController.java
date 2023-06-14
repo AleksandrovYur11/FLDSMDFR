@@ -1,6 +1,7 @@
 package ru.itmo.fldsmdfr.controllers;
 
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import ru.itmo.fldsmdfr.services.VoteService;
 import java.util.Map;
 
 @Controller
-@Log4j2
+@Slf4j
 public class VoteController {
 
     private VoteService voteService;
@@ -28,7 +29,7 @@ public class VoteController {
     @PostMapping("/vote")
     public String vote(@RequestParam Map<String, String> allParams, @AuthenticationPrincipal UserDetailsImpl userDetails) {
        log.info("saving vote {} for user {}", allParams, userDetails);
-       voteService.saveOneVote(allParams, userDetails);
+       voteService.saveVote(allParams, userDetails);
        return "redirect:/cabinet";
     }
 }

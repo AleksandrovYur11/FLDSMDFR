@@ -5,13 +5,14 @@
     <title>Голосование</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="d-flex" th:insert="~{fragments/header}"></div>
 <div class="col-6 mx-auto">
-    <h3 class="text-center">Голосование</h3>
-    <p class="text-center">14 июня</p>
-    <p class="badge badge-danger text-center">Голосование приостановлено</p>
+    <h3 class="text-center">Голосование за блюда</h3>
+    <p class="text-center" th:text="${#dates.format(#dates.createNow(), 'dd MMMM')}"></p>
+    <p class="badge badge-danger text-center" th:if="${!voteActive}">Голосование приостановлено</p>
+    <p class="badge badge-info text-center" th:if="${userVoted}">Вы уже голосовали сегодня</p>
     <form method="POST" action="/vote">
         <table class="table">
             <thead>
@@ -56,7 +57,8 @@
             </tbody>
         </table>
         <div class="row justify-content-center">
-            <button type="submit" class="btn btn-primary">Проголосовать</button>
+            <button th:disabled="${!voteActive || userVoted ? 'true' : 'false'}"
+            th:class="${voteActive && !userVoted ? 'btn btn-primary' : 'btn btn-primary disabled'}">Проголосовать</button>
         </div>
     </form>
 </div>

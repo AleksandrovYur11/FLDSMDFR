@@ -1,0 +1,6 @@
+<nav class="navbar navbar-light ">
+    <span class="nav navbar-nav navbar-right" th:text="${user.firstName + ' ' + user.lastName}"></span>
+    <form action="/logout" method="get">
+    <button class="btn btn-outline nav navbar-nav navbar-right" type="submit">Выйти</button>
+    </form>
+</nav>

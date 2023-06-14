@@ -1,13 +1,20 @@
 package ru.itmo.fldsmdfr.services;
 
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-@Log4j2
+@Slf4j
 public class ScheduleService {
+
+    private final SkyDeviceService skyDeviceService;
+
+    @Autowired
+    public ScheduleService(SkyDeviceService skyDeviceService) {
+        this.skyDeviceService = skyDeviceService;
+    }
 
     @Scheduled(cron = "${breakfastCron}")
     private void breakfastCron() {
@@ -22,6 +29,11 @@ public class ScheduleService {
     @Scheduled(cron = "${dinnerCron}")
     private void dinnerCron() {
         log.info("dinnerCron");
+    }
+
+    @Scheduled(cron = "${deviceCheckCron}")
+    private void deviceCheck() {
+        skyDeviceService.updateStatusAndLock();
     }
 
 }

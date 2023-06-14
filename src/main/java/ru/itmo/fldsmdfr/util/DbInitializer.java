@@ -6,12 +6,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.itmo.fldsmdfr.models.Dish;
-import ru.itmo.fldsmdfr.models.Role;
-import ru.itmo.fldsmdfr.models.User;
+import ru.itmo.fldsmdfr.models.*;
 import ru.itmo.fldsmdfr.repositories.DishRepository;
+import ru.itmo.fldsmdfr.repositories.FldsmdfrLocksRepository;
 import ru.itmo.fldsmdfr.repositories.UserRepository;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Component
@@ -20,20 +20,23 @@ public class DbInitializer {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final DishRepository dishRepository;
+    private final FldsmdfrLocksRepository locksRepository;
 
     @Autowired
-    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository) {
+    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.dishRepository = dishRepository;
+        this.locksRepository = fldsmdfrLocksRepository;
     }
+
     @EventListener(ApplicationStartedEvent.class)
     public void addUsersAfterStartup() {
         Optional<User> citizenUserOptional = userRepository.findByLogin("citizen");
         Optional<User> deliverymanUserOptional = userRepository.findByLogin("deliveryman");
         Optional<User> scientistUserOptional = userRepository.findByLogin("scientist");
 
-        if(citizenUserOptional.isEmpty()) {
+        if (citizenUserOptional.isEmpty()) {
             userRepository.save(User.builder()
                     .login("citizen")
                     .password(passwordEncoder.encode("citizen"))
@@ -42,7 +45,7 @@ public class DbInitializer {
                     .lastName("простой")
                     .build());
         }
-        if(deliverymanUserOptional.isEmpty()) {
+        if (deliverymanUserOptional.isEmpty()) {
             userRepository.save(User.builder()
                     .login("deliveryman")
                     .password(passwordEncoder.encode("deliveryman"))
@@ -51,7 +54,7 @@ public class DbInitializer {
                     .lastName("работящий")
                     .build());
         }
-        if(scientistUserOptional.isEmpty()) {
+        if (scientistUserOptional.isEmpty()) {
             userRepository.save(User.builder()
                     .login("scientist")
                     .password(passwordEncoder.encode("scientist"))
@@ -86,20 +89,25 @@ public class DbInitializer {
                         icecream
                 )
         );
-        if(meatballsOptional.isEmpty()) {
+        if (meatballsOptional.isEmpty()) {
             dishRepository.save(meatballs);
         }
-        if(pastaOptional.isEmpty()) {
+        if (pastaOptional.isEmpty()) {
             dishRepository.save(pasta);
         }
-        if(icecreamOptional.isEmpty()) {
+        if (icecreamOptional.isEmpty()) {
             dishRepository.save(icecream);
         }
     }
 
     @EventListener(ApplicationStartedEvent.class)
     public void addLock() {
-
+        locksRepository.save(
+                FldsmdfrLock.builder()
+                        .dateTime(Instant.now())
+                        .type(LockStatus.UNLOCK)
+                        .build()
+        );
     }
 
 }

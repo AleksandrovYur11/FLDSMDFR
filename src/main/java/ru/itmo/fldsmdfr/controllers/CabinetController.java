@@ -7,9 +7,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.itmo.fldsmdfr.models.Role;
 import ru.itmo.fldsmdfr.security.UserDetailsImpl;
 import ru.itmo.fldsmdfr.services.DishService;
+import ru.itmo.fldsmdfr.services.LockService;
+import ru.itmo.fldsmdfr.services.VoteService;
 
 import java.util.Optional;
 
@@ -17,10 +20,14 @@ import java.util.Optional;
 public class CabinetController {
 
     private DishService dishService;
+    private VoteService voteService;
+    private LockService lockService;
 
     @Autowired
-    public CabinetController(DishService dishService) {
+    public CabinetController(DishService dishService, VoteService voteService, LockService lockService) {
         this.dishService = dishService;
+        this.voteService = voteService;
+        this.lockService = lockService;
     }
 
     @GetMapping("/cabinet")
@@ -29,12 +36,21 @@ public class CabinetController {
         GrantedAuthority authority = authorityOptional.orElseThrow( () -> new IllegalStateException("user has no role"));
         if (authority.getAuthority().equals(Role.CITIZEN.toString())) {
             model.addAttribute("dishes", dishService.getAllDishes());
+            model.addAttribute("voteActive", !lockService.isLocked());
+            model.addAttribute("userVoted", voteService.hasUserVotedToday(userDetails.getUser()));
             return "votesDishes";
         } else if (authority.getAuthority().equals(Role.DELIVERYMAN.toString())) {
             return "addressDelivery";
         }
-        else {
-            return "maintanence";
+        else if (authority.getAuthority().equals(Role.SCIENTIST.toString())){
+            model.addAttribute("isActive", !lockService.isLocked());
+            return "maintenance";
         }
+        else return "error";
+    }
+
+    @ModelAttribute
+    private void addAtributes(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        model.addAttribute("user", userDetails.getUser());
     }
 }

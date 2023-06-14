@@ -11,6 +11,7 @@ import ru.itmo.fldsmdfr.repositories.VoteRepository;
 import ru.itmo.fldsmdfr.security.UserDetailsImpl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,7 +26,7 @@ public class VoteService {
         this.dishRepository = dishRepository;
     }
 
-    public void saveOneVote(Map<String, String> formData, UserDetailsImpl userDetails) {
+    public void saveVote(Map<String, String> formData, UserDetailsImpl userDetails) {
         if(!formData.containsKey("breakfast") || !formData.containsKey("lunch") || !formData.containsKey("dinner")) {
             throw new IllegalArgumentException("All choices must be provided: breakfast, lunch, dinner");
         }
@@ -48,5 +49,10 @@ public class VoteService {
                 .date(LocalDate.now())
                 .build();
         voteRepository.save(vote);
+    }
+
+    public boolean hasUserVotedToday(User user) {
+        List<Vote> votes = voteRepository.findByDate(LocalDate.now());
+        return !votes.isEmpty();
     }
 }

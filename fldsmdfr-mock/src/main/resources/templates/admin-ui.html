@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html></html>
+<head>
+    <title>ФулдисМдред</title>
+</head>
+<body>
+    <h2>Текущий статус</h2>
+    <h2 th:text="${status}"></h2>
+    <form action="/setok" method="post">
+    <button type="submit">Set OK status</button>
+    </form>
+    <form action="/setbroken" method="post">
+    <button type="submit">Set BROKEN status</button>
+    </form>
+</body>

@@ -1,6 +1,8 @@
 package ru.itmo.fldsmdfr.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.itmo.fldsmdfr.models.FldsmdfrLock;
 import ru.itmo.fldsmdfr.models.LockStatus;
@@ -10,6 +12,7 @@ import java.time.Instant;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class LockService {
 
     private FldsmdfrLocksRepository locksRepository;
@@ -19,12 +22,24 @@ public class LockService {
         this.locksRepository = locksRepository;
     }
 
-    public void saveLock() {
-
+    public void saveLock(LockStatus lockStatus) {
+        locksRepository.save(
+                FldsmdfrLock.builder()
+                        .type(lockStatus)
+                        .dateTime(Instant.now())
+                        .build()
+        );
     }
 
     public Boolean isLocked() {
-        Optional<FldsmdfrLock> lockOptional = locksRepository.findTopByDateTime(Instant.now());
-        return lockOptional.orElseThrow().getType().equals(LockStatus.LOCK);
+        Optional<FldsmdfrLock> lockOptional = locksRepository.findTopBy(Sort.by(Sort.Direction.DESC, "dateTime"));
+        boolean result = false;
+        if (lockOptional.isPresent()) {
+            result = lockOptional.get().getType().equals(LockStatus.LOCK);
+        }
+        log.info("checking if locked: {}", result);
+        return result;
     }
+
+
 }

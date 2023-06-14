@@ -1,6 +1,7 @@
 package ru.itmo.fldsmdfr.security;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @AllArgsConstructor
+@ToString
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
