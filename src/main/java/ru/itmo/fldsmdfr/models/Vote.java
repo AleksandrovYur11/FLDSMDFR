@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

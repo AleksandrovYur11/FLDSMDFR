@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

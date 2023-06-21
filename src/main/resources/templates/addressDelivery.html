@@ -55,8 +55,8 @@
                     </thead>
                     <tbody>
                     <tr th:each="delivery: ${deliveries}"
-                        th:class="${#strings.toString(delivery.status) == 'NEW' ? '' :
-                        ((#strings.toString(delivery.status) == 'IN_PROGRESS') ? 'table-warning' : 'table-success')}">
+                        th:class="${#strings.toString(delivery.status) == 'Новый' ? '' :
+                        ((#strings.toString(delivery.status) == 'В работе') ? 'table-warning' : 'table-success')}">
                         <td th:text="${delivery.id}">
                             1
                         </td>

@@ -1,5 +1,6 @@
 package ru.itmo.fldsmdfr.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
@@ -7,16 +8,14 @@ import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.itmo.fldsmdfr.models.*;
-import ru.itmo.fldsmdfr.repositories.DeliveryRepository;
-import ru.itmo.fldsmdfr.repositories.DishRepository;
-import ru.itmo.fldsmdfr.repositories.FldsmdfrLocksRepository;
-import ru.itmo.fldsmdfr.repositories.UserRepository;
+import ru.itmo.fldsmdfr.repositories.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class DbInitializer {
 
     private final UserRepository userRepository;
@@ -24,14 +23,16 @@ public class DbInitializer {
     private final DishRepository dishRepository;
     private final FldsmdfrLocksRepository locksRepository;
     private final DeliveryRepository deliveryRepository;
+    private final VoteRepository voteRepository;
 
     @Autowired
-    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository, DeliveryRepository deliveryRepository) {
+    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository, DeliveryRepository deliveryRepository, VoteRepository voteRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.dishRepository = dishRepository;
         this.locksRepository = fldsmdfrLocksRepository;
         this.deliveryRepository = deliveryRepository;
+        this.voteRepository = voteRepository;
     }
 
     @EventListener(ApplicationStartedEvent.class)
@@ -45,8 +46,25 @@ public class DbInitializer {
                     .login("citizen")
                     .password(passwordEncoder.encode("citizen"))
                     .role(Role.CITIZEN)
+                    .address("Кронверкский 49")
                     .firstName("житель")
                     .lastName("простой")
+                    .build());
+            userRepository.save(User.builder()
+                    .login("citizen2")
+                    .password(passwordEncoder.encode("citizen2"))
+                    .role(Role.CITIZEN)
+                    .address("Ололоева 8")
+                    .firstName("житель")
+                    .lastName("еще один")
+                    .build());
+            userRepository.save(User.builder()
+                    .login("citizen3")
+                    .password(passwordEncoder.encode("citizen3"))
+                    .role(Role.CITIZEN)
+                    .address("Далеко...")
+                    .firstName("житель")
+                    .lastName("и еще третий")
                     .build());
         }
         if (deliverymanUserOptional.isEmpty()) {
@@ -116,15 +134,41 @@ public class DbInitializer {
 
     @EventListener(ApplicationStartedEvent.class)
     public void addDeliveries() {
-        deliveryRepository.save(
-                Delivery.builder()
-                        .date(LocalDate.now())
-                        .foodTime(FoodTime.BREAKFAST)
-                        .address("Кронверкский 49")
-                        .status(DeliveryStatus.NEW)
-                        .lastChangeTimestamp(Instant.now())
-                        .build()
-        );
+//        deliveryRepository.save(
+//                Delivery.builder()
+//                        .date(LocalDate.now())
+//                        .foodTime(FoodTime.BREAKFAST)
+//                        .address("Кронверкский 49")
+//                        .status(DeliveryStatus.NEW)
+//                        .lastChangeTimestamp(Instant.now())
+//                        .build()
+//        );
     }
+
+//    @EventListener(ApplicationStartedEvent.class)
+//    public void testVoteRepo() throws InterruptedException {
+//        Thread.sleep(1000);
+//        voteRepository.save(Vote.builder()
+//                        .date(LocalDate.now())
+//                        .dish(dishRepository.findById(1l).orElseThrow())
+//                        .foodTime(FoodTime.BREAKFAST)
+//                        .user(userRepository.findById(1l).orElseThrow())
+//                .build());
+//        voteRepository.save(Vote.builder()
+//                .date(LocalDate.now())
+//                .dish(dishRepository.findById(1l).orElseThrow())
+//                .foodTime(FoodTime.BREAKFAST)
+//                .user(userRepository.findById(2l).orElseThrow())
+//                .build());
+//        voteRepository.save(Vote.builder()
+//                .date(LocalDate.now())
+//                .dish(dishRepository.findById(2l).orElseThrow())
+//                .foodTime(FoodTime.BREAKFAST)
+//                .user(userRepository.findById(3l).orElseThrow())
+//                .build());
+//        log.info(voteRepository.findAll().toString());
+//        log.info(voteRepository.findDishesGroupedByVoteCount(LocalDate.now(),
+//                FoodTime.LUNCH).toString());
+//    }
 
 }

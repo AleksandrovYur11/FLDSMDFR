@@ -15,11 +15,14 @@ public class SkyDeviceService {
 
     private final LockService lockService;
 
+    private final NotificationService notificationService;
+
 
     @Autowired
-    public SkyDeviceService(@Value("${skydeviceStatusUrl}")String skyDeviceUrl, LockService lockService) {
+    public SkyDeviceService(@Value("${skydeviceStatusUrl}")String skyDeviceUrl, LockService lockService, NotificationService notificationService) {
         this.skyDeviceStatusUrl = skyDeviceUrl;
         this.lockService = lockService;
+        this.notificationService = notificationService;
     }
 
     public void updateStatusAndLock() {
@@ -41,10 +44,12 @@ public class SkyDeviceService {
         }
     }
 
+
     private void processBadState(String response) {
         if (!lockService.isLocked()) {
             log.warn("sky device is broken (responded with {}) - locking", response);
             lockService.saveLock(LockStatus.LOCK);
+            notificationService.sendMaintenanceNotificationTelegram("ФулдисМдред нуждается в обслуживании (статус - " + response + ")");
         }
     }
 }

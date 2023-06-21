@@ -41,6 +41,7 @@ public class CabinetController {
             model.addAttribute("dishes", dishService.getAllDishes());
             model.addAttribute("voteActive", !lockService.isLocked());
             model.addAttribute("userVoted", voteService.hasUserVotedToday(userDetails.getUser()));
+            model.addAttribute("voteInProgress", voteService.isVoteActive());
             return "votesDishes";
         } else if (authority.getAuthority().equals(Role.DELIVERYMAN.toString())) {
             model.addAttribute("deliveries", deliveryService.getAllDeliveries());
