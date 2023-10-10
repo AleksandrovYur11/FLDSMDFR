@@ -7,8 +7,10 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.util.Pair;
+import org.springframework.scheduling.support.CronExpression;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
+import ru.itmo.fldsmdfr.dto.UserVoteDto;
 import ru.itmo.fldsmdfr.models.Dish;
 import ru.itmo.fldsmdfr.models.FoodTime;
 import ru.itmo.fldsmdfr.models.User;
@@ -18,11 +20,13 @@ import ru.itmo.fldsmdfr.repositories.VoteRepository;
 import ru.itmo.fldsmdfr.security.UserDetailsImpl;
 import ru.itmo.fldsmdfr.util.DateUtils;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,19 +48,13 @@ public class VoteService {
         this.dishRepository = dishRepository;
     }
 
-    public void saveVote(Map<String, String> formData, UserDetailsImpl userDetails) {
-        if(!formData.containsKey("breakfast") || !formData.containsKey("lunch") || !formData.containsKey("dinner")) {
-            throw new IllegalArgumentException("All choices must be provided: breakfast, lunch, dinner");
-        }
-        Long breakfastDishId = Long.parseLong(formData.get("breakfast"));
-        Long lunchDishId = Long.parseLong(formData.get("lunch"));
-        Long dinnerDishId = Long.parseLong(formData.get("dinner"));
-        Dish breakfastDish = dishRepository.findById(breakfastDishId).orElseThrow();
-        Dish lunchDish = dishRepository.findById(lunchDishId).orElseThrow();
-        Dish dinnerDish = dishRepository.findById(dinnerDishId).orElseThrow();
-        saveOneVote(userDetails.getUser(), FoodTime.BREAKFAST, breakfastDish);
-        saveOneVote(userDetails.getUser(), FoodTime.LUNCH, lunchDish);
-        saveOneVote(userDetails.getUser(), FoodTime.DINNER, dinnerDish);
+    public void saveVote(UserVoteDto userVoteDto) {
+        Dish breakfastDish = dishRepository.findById(userVoteDto.getBreakfastDishId()).orElseThrow();
+        Dish lunchDish = dishRepository.findById(userVoteDto.getLunchDishId()).orElseThrow();
+        Dish dinnerDish = dishRepository.findById(userVoteDto.getDinnerDishId()).orElseThrow();
+        saveOneVote(userVoteDto.getUser(), FoodTime.BREAKFAST, breakfastDish);
+        saveOneVote(userVoteDto.getUser(), FoodTime.LUNCH, lunchDish);
+        saveOneVote(userVoteDto.getUser(), FoodTime.DINNER, dinnerDish);
     }
 
     private void saveOneVote(User user, FoodTime foodTime, Dish dish) {
@@ -92,6 +90,9 @@ public class VoteService {
     }
 
     public Date getNextVoteStartDate() {
+        //TODO replace deprecated CronSequenceGenerator with CronExpression as below. Should test, solution below is not tested.
+//        CronExpression cronExpression = CronExpression.parse(voteStartCron);
+//        return Date.from(Optional.ofNullable(cronExpression.next(Instant.now())).orElseThrow());
         CronSequenceGenerator voteStartCronGenerator = new CronSequenceGenerator(voteStartCron);
         return voteStartCronGenerator.next(new Date());
     }

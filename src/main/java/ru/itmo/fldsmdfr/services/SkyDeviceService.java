@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.itmo.fldsmdfr.dto.LockStatusDto;
 import ru.itmo.fldsmdfr.models.LockStatus;
 
 @Service
@@ -33,7 +34,7 @@ public class SkyDeviceService {
             if ("ok".equalsIgnoreCase(response)) {
                 if (lockService.isLocked()) {
                     log.info("sky device is ok now - unlocking");
-                    lockService.saveLock(LockStatus.UNLOCK);
+                    lockService.saveLock(LockStatusDto.builder().lockStatus(LockStatus.UNLOCK).build());
                 }
             } else {
                 processBadState(response);
@@ -48,7 +49,7 @@ public class SkyDeviceService {
     private void processBadState(String response) {
         if (!lockService.isLocked()) {
             log.warn("sky device is broken (responded with {}) - locking", response);
-            lockService.saveLock(LockStatus.LOCK);
+            lockService.saveLock(LockStatusDto.builder().lockStatus(LockStatus.LOCK).build());
             notificationService.sendMaintenanceNotificationTelegram("ФулдисМдред нуждается в обслуживании (статус - " + response + ")");
         }
     }

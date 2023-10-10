@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.itmo.fldsmdfr.dto.UserRegistrationDto;
 import ru.itmo.fldsmdfr.models.User;
 import ru.itmo.fldsmdfr.services.RegistrationService;
 
@@ -30,13 +31,9 @@ public class LoginController {
     }
 
     @PostMapping("/registration")
-    public String perfectRegistration(@ModelAttribute("user") @Valid User user) {
-        registrationService.register(user);
+    public String registerUser(@ModelAttribute("user") @Valid User user) {
+        registrationService.register(UserRegistrationDto.builder().user(user).build());
         return "/auth/login";
     }
 
-//    @GetMapping("/index")
-//    public String getPage(){
-//        return "login";
-//    }
 }

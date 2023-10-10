@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.itmo.fldsmdfr.dto.LockStatusDto;
 import ru.itmo.fldsmdfr.models.FldsmdfrLock;
 import ru.itmo.fldsmdfr.models.LockStatus;
 import ru.itmo.fldsmdfr.repositories.FldsmdfrLocksRepository;
@@ -22,10 +23,10 @@ public class LockService {
         this.locksRepository = locksRepository;
     }
 
-    public void saveLock(LockStatus lockStatus) {
+    public void saveLock(LockStatusDto lockStatusDto) {
         locksRepository.save(
                 FldsmdfrLock.builder()
-                        .type(lockStatus)
+                        .type(lockStatusDto.getLockStatus())
                         .dateTime(Instant.now())
                         .build()
         );

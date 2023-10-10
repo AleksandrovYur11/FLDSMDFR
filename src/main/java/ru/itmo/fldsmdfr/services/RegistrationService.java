@@ -3,7 +3,7 @@ package ru.itmo.fldsmdfr.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import ru.itmo.fldsmdfr.dto.UserRegistrationDto;
 import ru.itmo.fldsmdfr.models.User;
 import ru.itmo.fldsmdfr.repositories.UserRepository;
 
@@ -19,8 +19,8 @@ public class RegistrationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
-    public void register(User user) {
+    public void register(UserRegistrationDto userRegistrationDto) {
+        User user = userRegistrationDto.getUser();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

@@ -2,6 +2,8 @@ package ru.itmo.fldsmdfr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.itmo.fldsmdfr.dto.DeliveryFinishedDto;
+import ru.itmo.fldsmdfr.dto.DeliveryProgressDto;
 import ru.itmo.fldsmdfr.models.*;
 import ru.itmo.fldsmdfr.repositories.DeliveryRepository;
 import ru.itmo.fldsmdfr.repositories.VoteRepository;
@@ -70,7 +72,8 @@ public class DeliveryService {
         });
     }
 
-        public void setInProgress (Long deliveryId){
+        public void setInProgress (DeliveryProgressDto deliveryProgressDto) {
+            Long deliveryId = deliveryProgressDto.getDeliveryId();
             Optional<Delivery> deliveryOptional = deliveryRepository.findById(deliveryId);
             Delivery delivery = deliveryOptional.orElseThrow(
                     () -> new IllegalArgumentException("not found delivery with id " + deliveryId));
@@ -83,7 +86,8 @@ public class DeliveryService {
             deliveryRepository.save(delivery);
         }
 
-        public void setDelivered (Long deliveryId){
+        public void setDelivered (DeliveryFinishedDto deliveryFinishedDto){
+            Long deliveryId = deliveryFinishedDto.getDeliveryId();
             Optional<Delivery> deliveryOptional = deliveryRepository.findById(deliveryId);
             Delivery delivery = deliveryOptional.orElseThrow(
                     () -> new IllegalArgumentException("not found delivery with id " + deliveryId));
