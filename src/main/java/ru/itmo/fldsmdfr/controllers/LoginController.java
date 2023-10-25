@@ -22,18 +22,18 @@ public class LoginController {
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") User user) {
-        return "/auth/registration";
+        return "auth/registration";
     }
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "/auth/login";
+        return "auth/login";
     }
 
     @PostMapping("/registration")
     public String registerUser(@ModelAttribute("user") @Valid User user) {
         registrationService.register(UserRegistrationDto.builder().user(user).build());
-        return "/auth/login";
+        return "redirect:/login";
     }
 
 }
