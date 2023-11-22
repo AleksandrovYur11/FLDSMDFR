@@ -1,12 +1,6 @@
 package ru.itmo.fldsmdfr.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import ru.itmo.fldsmdfr.models.User;
+import lombok.*;
 
 @Getter
 @Setter
@@ -15,5 +9,12 @@ import ru.itmo.fldsmdfr.models.User;
 @Builder
 @ToString
 public class UserRegistrationDto {
-    private User user;
+
+    private String login;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String role;
+
 }

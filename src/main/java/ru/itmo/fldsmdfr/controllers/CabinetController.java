@@ -4,12 +4,13 @@ package ru.itmo.fldsmdfr.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import ru.itmo.fldsmdfr.models.Role;
-import ru.itmo.fldsmdfr.security.UserDetailsImpl;
+import ru.itmo.fldsmdfr.security.services.UserDetailsImpl;
 import ru.itmo.fldsmdfr.services.DeliveryService;
 import ru.itmo.fldsmdfr.services.DishService;
 import ru.itmo.fldsmdfr.services.LockService;
@@ -17,7 +18,7 @@ import ru.itmo.fldsmdfr.services.VoteService;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 public class CabinetController {
 
     private DishService dishService;
@@ -34,24 +35,25 @@ public class CabinetController {
     }
 
     @GetMapping("/cabinet")
-    public String cabinet(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+    public ModelAndView cabinet(@AuthenticationPrincipal UserDetailsImpl userDetails, ModelAndView modelAndView) {
         Optional<? extends GrantedAuthority> authorityOptional = userDetails.getAuthorities().stream().findFirst();
-        GrantedAuthority authority = authorityOptional.orElseThrow( () -> new IllegalStateException("user has no role"));
+        GrantedAuthority authority = authorityOptional.orElseThrow(() -> new IllegalStateException("user has no role"));
         if (authority.getAuthority().equals(Role.CITIZEN.toString())) {
-            model.addAttribute("dishes", dishService.getAllDishes());
-            model.addAttribute("voteActive", !lockService.isLocked());
-            model.addAttribute("userVoted", voteService.hasUserVotedToday(userDetails.getUser()));
-            model.addAttribute("voteInProgress", voteService.isVoteActive());
-            return "votesDishes";
+            modelAndView.addObject("dishes", dishService.getAllDishes());
+            modelAndView.addObject("voteActive", !lockService.isLocked());
+            modelAndView.addObject("userVoted", voteService.hasUserVotedToday(userDetails.getUser()));
+            modelAndView.addObject("voteInProgress", voteService.isVoteActive());
+            modelAndView.setViewName("votesDishes");
         } else if (authority.getAuthority().equals(Role.DELIVERYMAN.toString())) {
-            model.addAttribute("deliveries", deliveryService.getAllDeliveries());
-            return "addressDelivery";
+            modelAndView.addObject("deliveries", deliveryService.getAllDeliveries());
+            modelAndView.setViewName("addressDelivery");
+        } else if (authority.getAuthority().equals(Role.SCIENTIST.toString())) {
+            modelAndView.addObject("isActive", !lockService.isLocked());
+            modelAndView.setViewName("maintenance");
+        } else {
+            modelAndView.setViewName("error");
         }
-        else if (authority.getAuthority().equals(Role.SCIENTIST.toString())){
-            model.addAttribute("isActive", !lockService.isLocked());
-            return "maintenance";
-        }
-        else return "error";
+        return modelAndView;
     }
 
     @ModelAttribute
