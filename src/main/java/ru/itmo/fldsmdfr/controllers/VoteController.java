@@ -1,20 +1,19 @@
 package ru.itmo.fldsmdfr.controllers;
 
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.itmo.fldsmdfr.dto.UserVoteDto;
-import ru.itmo.fldsmdfr.security.UserDetailsImpl;
+import ru.itmo.fldsmdfr.security.services.UserDetailsImpl;
 import ru.itmo.fldsmdfr.services.DishService;
 import ru.itmo.fldsmdfr.services.VoteService;
 
 import java.util.Map;
 
-@Controller
+@RestController
 @Slf4j
 public class VoteController {
 

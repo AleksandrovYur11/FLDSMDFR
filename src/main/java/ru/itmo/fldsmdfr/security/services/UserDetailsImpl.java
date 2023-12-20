@@ -1,4 +1,4 @@
-package ru.itmo.fldsmdfr.security;
+package ru.itmo.fldsmdfr.security.services;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;

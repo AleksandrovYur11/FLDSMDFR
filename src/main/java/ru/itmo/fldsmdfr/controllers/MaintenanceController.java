@@ -2,13 +2,13 @@ package ru.itmo.fldsmdfr.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.itmo.fldsmdfr.dto.LockStatusDto;
 import ru.itmo.fldsmdfr.models.LockStatus;
 import ru.itmo.fldsmdfr.services.LockService;
 
-@Controller
+@RestController
 @Slf4j
 public class MaintenanceController {
 

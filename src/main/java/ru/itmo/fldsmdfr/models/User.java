@@ -14,6 +14,7 @@ import lombok.*;
 public class User {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,4 +26,6 @@ public class User {
     private String address;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
 }

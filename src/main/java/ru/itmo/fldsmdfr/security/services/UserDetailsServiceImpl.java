@@ -1,4 +1,4 @@
-package ru.itmo.fldsmdfr.security;
+package ru.itmo.fldsmdfr.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

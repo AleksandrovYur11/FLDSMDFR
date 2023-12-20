@@ -4,10 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.util.Pair;
-import org.springframework.scheduling.support.CronExpression;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 import ru.itmo.fldsmdfr.dto.UserVoteDto;
@@ -17,16 +15,12 @@ import ru.itmo.fldsmdfr.models.User;
 import ru.itmo.fldsmdfr.models.Vote;
 import ru.itmo.fldsmdfr.repositories.DishRepository;
 import ru.itmo.fldsmdfr.repositories.VoteRepository;
-import ru.itmo.fldsmdfr.security.UserDetailsImpl;
 import ru.itmo.fldsmdfr.util.DateUtils;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
