@@ -9,6 +9,7 @@ import ru.itmo.fldsmdfr.repositories.UserRepository;
 import ru.itmo.fldsmdfr.security.exceptions.TokenRefreshException;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,8 +27,8 @@ public class RefreshTokenService {
         this.userRepository = userRepository;
     }
 
-    public RefreshToken findByToken(String refreshToken) {
-        return refreshTokenRepository.findByToken(refreshToken).get();
+    public Optional<RefreshToken> findByToken(String refreshToken) {
+        return refreshTokenRepository.findByToken(refreshToken);
     }
 
     public RefreshToken createRefreshToken(Long userId) {

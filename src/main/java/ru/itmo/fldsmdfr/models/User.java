@@ -3,6 +3,8 @@ package ru.itmo.fldsmdfr.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user", schema = "public")
 @Getter
@@ -26,6 +28,6 @@ public class User {
     private String address;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToOne(mappedBy = "user")
-    private RefreshToken refreshToken;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<RefreshToken> refreshToken;
 }

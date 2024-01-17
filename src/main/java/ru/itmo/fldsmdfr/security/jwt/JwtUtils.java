@@ -1,9 +1,6 @@
 package ru.itmo.fldsmdfr.security.jwt;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,36 +22,31 @@ public class JwtUtils {
     @Value("${FLDSMDFR.app.jwtExpirationMs}")
     private int jwtExpiration;
 
-    public String generateJwtToken(UserDetailsImpl userDetails) {
-        return generateJwtTokenFromLogin(userDetails.getUsername());
-    }
+//    public String generateJwtToken(UserDetailsImpl userDetails) {
+//        return generateJwtTokenFromLogin(userDetails.getUsername());
+//    }
 
-    public String generateJwtTokenFromLogin(String login) {
+    public String generateJwtToken(UserDetailsImpl userDetails) {
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         return Jwts.builder()
-                .setIssuer("FLDSMDFR")
+                .setIssuer("FLDSMDRF")
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration))
-                .setSubject(login)
+                .setSubject("JWT Token")
+                .claim("login", userDetails.getUser().getLogin())
+                .claim("authorities", userDetails.getAuthorities())
                 .signWith(key)
                 .compact();
     }
 
-    public String getLoginFromJwtToken(String token) {
+
+    public Claims getClaimsFromJwtToken(String token) {
         SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-        System.out.println(Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject());
 
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-
+                .getBody();
     }
 
     public boolean isValidJwtToken(String authToken) {

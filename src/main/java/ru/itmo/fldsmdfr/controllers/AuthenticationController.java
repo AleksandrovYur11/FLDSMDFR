@@ -109,45 +109,24 @@ public class AuthenticationController {
 
 
     @PostMapping("/refreshToken")
-    public ResponseEntity<?> refreshAccessToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<?> refreshAccessToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest,
+                                                @AuthenticationPrincipal UserDetailsImpl userDetails) {
         String refreshToken = refreshTokenRequest.getRefreshToken();
-        System.out.println("Worked ");
-        RefreshToken token = refreshTokenRepository.findByToken(refreshToken)
-                .orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database"));
-        refreshTokenService.isVerifyExpiration(token);
-        User user = token.getUser();
-        String newAccessToken = jwtUtils.generateJwtTokenFromLogin(user.getLogin());
-        return ResponseEntity.ok(new RefreshTokenResponse(newAccessToken, refreshToken));
+        return refreshTokenService.findByToken(refreshToken)
+                .map(refreshTokenService::isVerifyExpiration)
+                .map(user -> {
+//                    Collection<? extends GrantedAuthority> authorities = new ArrayList<>(user.getRoles());
+                    String newAccessToken = jwtUtils.generateJwtToken(userDetails);
+                    return ResponseEntity.ok(new RefreshTokenResponse(newAccessToken, refreshToken));
+                })
+                .orElseThrow(() -> new TokenRefreshException(refreshToken,
+                        "Refresh token is not in database"));
     }
 
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = userDetails.getUser().getId();
         refreshTokenService.deleteRefreshToken(userId);
         return ResponseEntity.ok("Log out successful!");
     }
-
-
-//    @Autowired
-//    public AuthenticationController(RegistrationService registrationService) {
-//        this.registrationService = registrationService;
-//    }
-//
-//    @GetMapping("/registration")
-//    public String getRegistrationPage(@ModelAttribute("user") User user) {
-//        return "auth/registration";
-//    }
-//
-//    @GetMapping("/login")
-//    public String getLoginPage() {
-//        return "auth/login";
-//    }
-//
-//    @PostMapping("/registration")
-//    public String registerUser(@ModelAttribute("user") @Valid User user) {
-//        registrationService.register(UserRegistrationDto.builder().user(user).build());
-//        return "redirect:/login";
-//    }
-
 }
