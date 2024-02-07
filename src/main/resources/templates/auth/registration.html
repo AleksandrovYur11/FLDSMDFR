@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
 <form th:method="POST" th:action="@{/registration}" th:object="${user}">
@@ -34,7 +37,7 @@
         </option>
     </select>
     <div style="color: red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role error</div>
-    <input type="submit" value="Sing up"/>
+    <input type="submit" value="Зарегистрироваться"/>
 </form>
 
 </body>

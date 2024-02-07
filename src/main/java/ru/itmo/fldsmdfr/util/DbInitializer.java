@@ -9,9 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.itmo.fldsmdfr.models.*;
 import ru.itmo.fldsmdfr.repositories.*;
+import ru.itmo.fldsmdfr.services.ScheduleService;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -25,14 +25,17 @@ public class DbInitializer {
     private final DeliveryRepository deliveryRepository;
     private final VoteRepository voteRepository;
 
+    private final ScheduleService scheduleService;
+
     @Autowired
-    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository, DeliveryRepository deliveryRepository, VoteRepository voteRepository) {
+    public DbInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder, DishRepository dishRepository, FldsmdfrLocksRepository fldsmdfrLocksRepository, DeliveryRepository deliveryRepository, VoteRepository voteRepository, ScheduleService scheduleService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.dishRepository = dishRepository;
         this.locksRepository = fldsmdfrLocksRepository;
         this.deliveryRepository = deliveryRepository;
         this.voteRepository = voteRepository;
+        this.scheduleService = scheduleService;
     }
 
     @EventListener(ApplicationStartedEvent.class)
@@ -170,5 +173,17 @@ public class DbInitializer {
 //        log.info(voteRepository.findDishesGroupedByVoteCount(LocalDate.now(),
 //                FoodTime.LUNCH).toString());
 //    }
+
+
+    @EventListener(ApplicationStartedEvent.class)
+    public void cronInit() {
+        log.info("cron values on start:");
+        log.info("brekfastCron: {}", scheduleService.getBreakfastCron());
+        log.info("lunchCron: {}", scheduleService.getLunchCron());
+        log.info("dinnerCron: {}", scheduleService.getDinnerCron());
+        log.info("deviceCheckCron: {}", scheduleService.getDeviceCheckCron());
+        log.info("voteStartCron: {}", scheduleService.getVoteStartCron());
+        log.info("voteEndCron: {}", scheduleService.getVoteEndCron());
+    }
 
 }
