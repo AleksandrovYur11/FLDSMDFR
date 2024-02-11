@@ -19,7 +19,7 @@
     <form action="/maintain" method="post">
         <button th:class="${!isActive ? 'btn btn-primary' : 'btn btn-primary disabled'}"
                 th:disabled="${isActive}"
-                th:text="${!isActive ? 'Обслуживание не требуется' : 'Обслуживание проведено'}"
+                th:text="${isActive ? 'Обслуживание не требуется' : 'Обслуживание проведено'}"
         ></button>
     </form>
 </div>

@@ -8,17 +8,29 @@
     <form method="POST" th:action="@{/crondebug}">
 <!--        <a>breakfastCron</a>-->
         <label for="breakfastCron">breakfastCron</label>
-        <input type="text" id="breakfastCron" name="breakfastCron" >
+        <input type="text" id="breakfastCron" name="breakfastCron" th:value="${breakfastCron}">
+        <br/>
+
         <label for="lunchCron">lunchCron</label>
-        <input type="text" id="lunchCron" name="lunchCron">
+        <input type="text" id="lunchCron" name="lunchCron" th:value="${lunchCron}">
+        <br/>
+
         <label for="dinnerCron">dinnerCron</label>
-        <input type="text" id="dinnerCron" name="dinnerCron">
+        <input type="text" id="dinnerCron" name="dinnerCron" th:value="${dinnerCron}">
+        <br/>
+
         <label for="deviceCheckCron">deviceCheckCron</label>
-        <input type="text" id="deviceCheckCron" name="deviceCheckCron">
+        <input type="text" id="deviceCheckCron" name="deviceCheckCron" th:value="${deviceCheckCron}">
+        <br/>
+
         <label for="voteStartCron">voteStartCron</label>
-        <input type="text" id="voteStartCron" name="voteStartCron">
+        <input type="text" id="voteStartCron" name="voteStartCron" th:value="${voteStartCron}">
+        <br/>
+
         <label for="voteEndCron">voteEndCron</label>
-        <input type="text" id="voteEndCron" name="voteEndCron">
+        <input type="text" id="voteEndCron" name="voteEndCron" th:value="${voteEndCron}">
+        <br/>
+
         <input type="submit" value="Изменить cron"/>
     </form>
 </body>

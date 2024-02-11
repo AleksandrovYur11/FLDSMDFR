@@ -36,6 +36,8 @@ public class VoteService {
     private VoteRepository voteRepository;
     private DishRepository dishRepository;
 
+    private static boolean isVoteActive = true;
+
     @Value("${voteStartCron}")
     private String voteStartCron;
 
@@ -84,9 +86,11 @@ public class VoteService {
     }
 
     public boolean isVoteActive() {
-        Date nextVoteStart = getNextVoteStartDate();
-        Date nextVoteEnd = getNextVoteEndDate();
-        return !DateUtils.isToday(nextVoteStart) && DateUtils.isToday(nextVoteEnd);
+//        Date nextVoteStart = getNextVoteStartDate();
+//        Date nextVoteEnd = getNextVoteEndDate();
+//        return !DateUtils.isToday(nextVoteStart) && DateUtils.isToday(nextVoteEnd);
+
+        return isVoteActive;
     }
 
     public Date getNextVoteStartDate() {
@@ -105,5 +109,9 @@ public class VoteService {
     @EventListener(ApplicationStartedEvent.class)
     public void logTest() {
         log.info("is vote active : {}", this.isVoteActive());
+    }
+
+    public static void setIsVoteActive(boolean isVoteActive) {
+        VoteService.isVoteActive = isVoteActive;
     }
 }
