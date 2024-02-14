@@ -58,7 +58,7 @@ class UserDetailsServiceImplTest {
      * Method under test: {@link UserDetailsServiceImpl#loadUserByUsername(String)}
      */
     @Test
-    void testLoadUserByUsername2() throws UsernameNotFoundException {
+    void testLoadUserByUsernameEmptyNotFound() throws UsernameNotFoundException {
         // Arrange
         Optional<User> emptyResult = Optional.empty();
         when(userRepository.findByLogin(Mockito.<String>any())).thenReturn(emptyResult);
@@ -72,7 +72,7 @@ class UserDetailsServiceImplTest {
      * Method under test: {@link UserDetailsServiceImpl#loadUserByUsername(String)}
      */
     @Test
-    void testLoadUserByUsername3() throws UsernameNotFoundException {
+    void testLoadUserByUsernameNotFoundExcept() throws UsernameNotFoundException {
         // Arrange
         when(userRepository.findByLogin(Mockito.<String>any())).thenThrow(new UsernameNotFoundException("Msg"));
 

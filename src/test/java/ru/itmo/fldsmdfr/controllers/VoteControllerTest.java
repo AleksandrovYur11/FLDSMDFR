@@ -32,7 +32,7 @@ class VoteControllerTest {
      * Method under test: {@link VoteController#vote(Map, UserDetailsImpl)}
      */
     @Test
-    void testVote() {
+    void testVoteEmpty() {
 
         // Arrange
         VoteService voteService = new VoteService(mock(VoteRepository.class), mock(DishRepository.class));
@@ -48,7 +48,7 @@ class VoteControllerTest {
      * Method under test: {@link VoteController#vote(Map, UserDetailsImpl)}
      */
     @Test
-    void testVote2() {
+    void testVoteBreakfastOnly() {
 
         // Arrange
         VoteService voteService = new VoteService(mock(VoteRepository.class), mock(DishRepository.class));
@@ -66,7 +66,7 @@ class VoteControllerTest {
      * Method under test: {@link VoteController#vote(Map, UserDetailsImpl)}
      */
     @Test
-    void testVote3() {
+    void testVoteLunchAndBreakfast() {
 
         // Arrange
         VoteService voteService = new VoteService(mock(VoteRepository.class), mock(DishRepository.class));
@@ -85,7 +85,7 @@ class VoteControllerTest {
      * Method under test: {@link VoteController#vote(Map, UserDetailsImpl)}
      */
     @Test
-    void testVote4() {
+    void testVoteUserCorrectAndGarbageVote() {
         // Arrange
         Dish dish = new Dish();
         dish.setId(1L);
@@ -140,7 +140,7 @@ class VoteControllerTest {
      * Method under test: {@link VoteController#vote(Map, UserDetailsImpl)}
      */
     @Test
-    void testVote5() {
+    void testVoteSaved() {
         // Arrange
         VoteService voteService = mock(VoteService.class);
         doNothing().when(voteService).saveVote(Mockito.<UserVoteDto>any());

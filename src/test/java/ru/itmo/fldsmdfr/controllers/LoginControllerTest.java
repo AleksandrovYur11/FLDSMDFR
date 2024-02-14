@@ -48,7 +48,7 @@ class LoginControllerTest {
    * Method under test: {@link LoginController#getLoginPage()}
    */
   @Test
-  void testGetLoginPage2() throws Exception {
+  void testGetLoginPageWithUriVariables() throws Exception {
     // Arrange
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/login", "Uri Variables");
 
@@ -85,7 +85,7 @@ class LoginControllerTest {
    * Method under test: {@link LoginController#getRegistrationPage(User)}
    */
   @Test
-  void testGetRegistrationPage2() throws Exception {
+  void testGetRegistrationPageContentType() throws Exception {
     // Arrange
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/registration");
     requestBuilder.contentType("https://example.org/example");

@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import ru.itmo.fldsmdfr.models.Dish;
@@ -43,21 +42,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetRepositoryInteraction() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -99,21 +84,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet2() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetCitizen() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -178,21 +149,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet3() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetDisplayVote() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -235,21 +192,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet4() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetDeliveryman() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -299,21 +242,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet5() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetAlreadyVoted() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -359,77 +288,12 @@ class CabinetControllerTest {
         assertEquals("votesDishes", actualCabinetResult);
     }
 
-    /**
-     * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
-     */
-    @Test
-    void testCabinet6() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        // Arrange
-        DishRepository dishRepository = mock(DishRepository.class);
-        when(dishRepository.findAll()).thenReturn(new ArrayList<>());
-        DishService dishService = new DishService(dishRepository);
-        VoteService voteService = mock(VoteService.class);
-        when(voteService.hasUserVotedToday(Mockito.<User>any())).thenReturn(true);
-        when(voteService.isVoteActive()).thenReturn(true);
-        FldsmdfrLocksRepository locksRepository = mock(FldsmdfrLocksRepository.class);
-        Optional<FldsmdfrLock> emptyResult = Optional.empty();
-        when(locksRepository.findTopBy(Mockito.<Sort>any())).thenReturn(emptyResult);
-        LockService lockService = new LockService(locksRepository);
-        DeliveryRepository deliveryRepository = mock(DeliveryRepository.class);
-        VoteRepository voteRepository = mock(VoteRepository.class);
-        CabinetController cabinetController = new CabinetController(dishService, voteService, lockService,
-                new DeliveryService(deliveryRepository, voteRepository,
-                        new VoteService(mock(VoteRepository.class), mock(DishRepository.class))));
-
-        User user = new User();
-        user.setRole(Role.CITIZEN);
-        UserDetailsImpl userDetails = new UserDetailsImpl(user);
-
-        // Act
-        String actualCabinetResult = cabinetController.cabinet(userDetails, new ConcurrentModel());
-
-        // Assert
-        verify(dishRepository).findAll();
-        verify(locksRepository).findTopBy(Mockito.<Sort>any());
-        verify(voteService).hasUserVotedToday(Mockito.<User>any());
-        verify(voteService).isVoteActive();
-        assertEquals("votesDishes", actualCabinetResult);
-    }
 
     /**
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet7() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetLockedInterface() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -465,21 +329,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet8() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetDeliverymanStatuses() {
 
         // Arrange
         DishRepository dishRepository = mock(DishRepository.class);
@@ -508,22 +358,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet9() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
-
+    void testCabinetScientistMaintanence() {
         // Arrange
         LockService lockService = mock(LockService.class);
         when(lockService.isLocked()).thenReturn(true);
@@ -551,21 +386,7 @@ class CabinetControllerTest {
      * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
      */
     @Test
-    void testCabinet10() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
+    void testCabinetThrowExceptionNoUser() {
 
         // Arrange
         DishService dishService = new DishService(mock(DishRepository.class));
@@ -582,48 +403,5 @@ class CabinetControllerTest {
         // Act and Assert
         assertThrows(IllegalStateException.class, () -> cabinetController.cabinet(userDetails, new ConcurrentModel()));
         verify(userDetails).getAuthorities();
-    }
-
-    /**
-     * Method under test: {@link CabinetController#cabinet(UserDetailsImpl, Model)}
-     */
-    @Test
-    void testCabinet11() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   jakarta.servlet.ServletException: Request processing failed: java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   java.lang.NullPointerException: Cannot invoke "ru.itmo.fldsmdfr.models.User.getRole()" because "this.user" is null
-        //       at ru.itmo.fldsmdfr.security.UserDetailsImpl.getAuthorities(UserDetailsImpl.java:21)
-        //       at ru.itmo.fldsmdfr.controllers.CabinetController.cabinet(CabinetController.java:38)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-        //       at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        // Arrange
-        DishService dishService = new DishService(mock(DishRepository.class));
-        VoteService voteService = mock(VoteService.class);
-        LockService lockService = mock(LockService.class);
-        DeliveryRepository deliveryRepository = mock(DeliveryRepository.class);
-        VoteRepository voteRepository = mock(VoteRepository.class);
-        CabinetController cabinetController = new CabinetController(dishService, voteService, lockService,
-                new DeliveryService(deliveryRepository, voteRepository,
-                        new VoteService(mock(VoteRepository.class), mock(DishRepository.class))));
-
-        ArrayList<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-        grantedAuthorityList.add(new SimpleGrantedAuthority("user has no role"));
-        UserDetailsImpl userDetails = mock(UserDetailsImpl.class);
-        Mockito.<Collection<? extends GrantedAuthority>>when(userDetails.getAuthorities()).thenReturn(grantedAuthorityList);
-
-        // Act
-        String actualCabinetResult = cabinetController.cabinet(userDetails, new ConcurrentModel());
-
-        // Assert
-        verify(userDetails).getAuthorities();
-        assertEquals("error", actualCabinetResult);
     }
 }

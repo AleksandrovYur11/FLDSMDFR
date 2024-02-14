@@ -70,7 +70,7 @@ class CronDebugControllerTest {
      * Method under test: {@link CronDebugController#getCronDebugPage(Model)}
      */
     @Test
-    void testGetCronDebugPage2() throws Exception {
+    void testGetCronDebugPageUnauthorized() throws Exception {
         // Arrange
         when(scheduleService.getBreakfastCron()).thenReturn("Breakfast Cron");
         when(scheduleService.getDeviceCheckCron()).thenReturn("Device Check Cron");
@@ -93,7 +93,7 @@ class CronDebugControllerTest {
      * Method under test: {@link CronDebugController#setCronDebug(Map)}
      */
     @Test
-    void testSetCronDebug() throws Exception {
+    void testSetCronDebugRedirectOnForm() throws Exception {
         // Arrange
         doNothing().when(scheduleService).setBreakfastCron(Mockito.<String>any());
         doNothing().when(scheduleService).setDeviceCheckCron(Mockito.<String>any());

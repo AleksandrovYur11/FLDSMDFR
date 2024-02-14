@@ -52,7 +52,7 @@ class MaintenanceControllerTest {
      * Method under test: {@link MaintenanceController#maintain()}
      */
     @Test
-    void testMaintain2() throws Exception {
+    void testMaintainUnlocked() throws Exception {
         // Arrange
         doNothing().when(lockService).saveLock(Mockito.<LockStatusDto>any());
         when(lockService.isLocked()).thenReturn(false);
@@ -72,7 +72,7 @@ class MaintenanceControllerTest {
      * Method under test: {@link MaintenanceController#maintain()}
      */
     @Test
-    void testMaintain3() throws Exception {
+    void testMaintainLocked() throws Exception {
         // Arrange
         doNothing().when(lockService).saveLock(Mockito.<LockStatusDto>any());
         when(lockService.isLocked()).thenReturn(true);
